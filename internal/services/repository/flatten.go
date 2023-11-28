@@ -21,6 +21,7 @@ func flattenDocker(docker *repository.Docker) []map[string]interface{} {
 	data := map[string]interface{}{
 		"force_basic_auth": docker.ForceBasicAuth,
 		"v1_enabled":       docker.V1Enabled,
+		"subdomain":        docker.SubDomain,
 	}
 
 	if docker.HTTPPort != nil {

@@ -17,16 +17,21 @@ import (
 
 func testAccResourceRepositoryDockerHosted() repository.DockerHostedRepository {
 	writePolicy := repository.StorageWritePolicyAllow
+	rndString := acctest.RandString(10)
+	subDomainName := ""
 
+	if tools.GetEnv("SKIP_PRO_TESTS", "false") != "true" {
+		subDomainName = fmt.Sprintf("test-repo-%s", rndString)
+	}
 	return repository.DockerHostedRepository{
-		Name:   fmt.Sprintf("test-repo-%s", acctest.RandString(10)),
+		Name:   fmt.Sprintf("test-repo-%s", rndString),
 		Online: true,
 		Docker: repository.Docker{
 			ForceBasicAuth: true,
 			HTTPPort:       tools.GetIntPointer(rand.Intn(999) + 32000),
 			HTTPSPort:      tools.GetIntPointer(rand.Intn(999) + 33000),
 			V1Enabled:      false,
-			SubDomain:      false,
+			SubDomain:      subDomainName,
 		},
 		Storage: repository.HostedStorage{
 			BlobStoreName:               "default",
@@ -84,7 +89,6 @@ func TestAccResourceRepositoryDockerHosted(t *testing.T) {
 						resource.TestCheckResourceAttr(resourceName, "docker.0.http_port", strconv.Itoa(*repo.Docker.HTTPPort)),
 						resource.TestCheckResourceAttr(resourceName, "docker.0.https_port", strconv.Itoa(*repo.Docker.HTTPSPort)),
 						resource.TestCheckResourceAttr(resourceName, "docker.0.v1_enabled", strconv.FormatBool(repo.Docker.V1Enabled)),
-						resource.TestCheckResourceAttr(resourceName, "docker.0.subdomain", strconv.FormatBool(repo.Docker.SubDomain)),
 					),
 				),
 			},

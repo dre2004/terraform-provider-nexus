@@ -42,6 +42,7 @@ func TestAccDataSourceRepositoryDockerGroup(t *testing.T) {
 		Providers: acceptance.TestAccProviders,
 		Steps: []resource.TestStep{
 			{
+				// TODO: Need to figure out why this is happening
 				Config: testAccResourceRepositoryDockerHostedConfig(repoHosted) + testAccResourceRepositoryDockerGroupConfig(repoGroup) + testAccDataSourceRepositoryDockerGroupConfig(),
 				Check: resource.ComposeTestCheckFunc(
 					resource.ComposeAggregateTestCheckFunc(

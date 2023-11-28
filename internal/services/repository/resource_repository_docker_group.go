@@ -58,7 +58,7 @@ func getDockerGroupRepositoryFromResourceData(resourceData *schema.ResourceData)
 		Docker: repository.Docker{
 			ForceBasicAuth: dockerConfig["force_basic_auth"].(bool),
 			V1Enabled:      dockerConfig["v1_enabled"].(bool),
-			SubDomain:      dockerConfig["subdomain"].(bool),
+			SubDomain:      dockerConfig["subdomain"].(string),
 		},
 	}
 

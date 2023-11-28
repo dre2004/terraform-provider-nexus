@@ -55,7 +55,7 @@ Optional:
 
 - `http_port` (Number) Create an HTTP connector at specified port
 - `https_port` (Number) Create an HTTPS connector at specified port
-- `subdomain` (String) Use sub-domain routing for this repository
+- `subdomain` (String) Sub-domain to use for this repository
 
 
 <a id="nestedblock--storage"></a>
